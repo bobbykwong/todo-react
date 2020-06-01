@@ -7,7 +7,9 @@ class App extends React.Component {
 
         this.state = ({
             taskInput: "",
-            tasks: []
+            tasks: [],
+            errorOne: false,
+            errorTwo: true
         })
 
         this.changeHappened = (event) => {
@@ -18,11 +20,18 @@ class App extends React.Component {
 
         this.clickHappened = () => {
             const newTask = this.state.taskInput;
-
-            this.setState({
-                tasks: [...this.state.tasks, newTask],
-                taskInput: ""
-            })
+            if (newTask.split('').length > 1) {
+                this.setState({
+                    tasks: [...this.state.tasks, newTask],
+                    taskInput: "",
+                    errorOne: false
+                })
+            }
+            else{
+                this.setState({
+                    errorOne: true
+                })
+            }
         }
     }
 
@@ -36,10 +45,19 @@ class App extends React.Component {
         )
     })
 
+    let errorOne;
+    if (this.state.errorOne === true) {
+        errorOne = <p>Task needs to be more than 1 character</p>
+    }else{
+        errorOne = <p></p>
+    }
+
+
     return (
       <div>
         <div>{tasks}</div>
         <input onChange={(event) => {this.changeHappened(event)}} value={this.state.taskInput}/>
+        {errorOne}
         <button onClick={() => {this.clickHappened()}} >Submit</button>
       </div>
     );
