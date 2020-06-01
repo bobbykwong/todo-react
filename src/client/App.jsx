@@ -33,15 +33,22 @@ class App extends React.Component {
                 })
             }
         }
+
+        this.completeTask = () => {
+
+        }
     }
 
 
   render() {
     console.log(this.state)
 
-    const tasks = this.state.tasks.map(task => {
+    const tasks = this.state.tasks.map((task, taskID) => {
         return (
-            <p>{task}</p>
+            <div>
+                <input type="checkbox" value="taskID"/>
+                <label>{task}</label>
+            </div>
         )
     })
 
@@ -55,10 +62,15 @@ class App extends React.Component {
 
     return (
       <div>
-        <div>{tasks}</div>
-        <input onChange={(event) => {this.changeHappened(event)}} value={this.state.taskInput}/>
-        {errorOne}
-        <button onClick={() => {this.clickHappened()}} >Submit</button>
+        <div>
+            <div>{tasks}</div>
+            <button onClick={() => {this.completeTask()}}>Completed Task</button>
+        </div>
+        <div>
+            <input onChange={(event) => {this.changeHappened(event)}} value={this.state.taskInput}/>
+            {errorOne}
+            <button onClick={() => {this.clickHappened()}} >Submit</button>
+        </div>
       </div>
     );
   }
