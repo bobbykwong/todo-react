@@ -17,8 +17,11 @@ class App extends React.Component {
         }
 
         this.clickHappened = () => {
+            const newTask = this.state.taskInput;
+
             this.setState({
-                tasks: [...this.state.tasks, this.state.taskInput]
+                tasks: [...this.state.tasks, newTask],
+                taskInput: ""
             })
         }
     }
@@ -26,10 +29,17 @@ class App extends React.Component {
 
   render() {
     console.log(this.state)
+
+    const tasks = this.state.tasks.map(task => {
+        return (
+            <p>{task}</p>
+        )
+    })
+
     return (
       <div>
-        <div>{this.state.tasks}</div>
-        <input onChange={(event) => {this.changeHappened(event)}}/>
+        <div>{tasks}</div>
+        <input onChange={(event) => {this.changeHappened(event)}} value={this.state.taskInput}/>
         <button onClick={() => {this.clickHappened()}} >Submit</button>
       </div>
     );
