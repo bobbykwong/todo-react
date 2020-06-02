@@ -15,34 +15,34 @@ class App extends React.Component {
             completeList: []
         })
 
-        this.changeHappened = (event) => {
-            this.setState({
-                taskInput: event.target.value
-            })
-        }
-
-        this.clickHappened = () => {
-            const newTask = this.state.taskInput;
-            if (newTask.split('').length > 1) {
-                this.setState({
-                    tasks: [...this.state.tasks, newTask],
-                    taskInput: "",
-                    errorOne: false
-                })
-            }
-            else{
-                this.setState({
-                    errorOne: true
-                })
-            }
-        }
-
         this.completeTask = (taskID) =>{
             const completedTask = this.state.tasks[taskID];
 
             this.setState({
                 tasks: [...this.state.tasks.slice(0, taskID), ...this.state.tasks.slice(taskID + 1)],
                 completeList: [...this.state.completeList, completedTask]
+            })
+        }
+    }
+
+    changeHappened(event){
+        this.setState({
+            taskInput: event.target.value
+        })
+    }
+
+    clickHappened(){
+        const newTask = this.state.taskInput;
+        if (newTask.split('').length > 1) {
+            this.setState({
+                tasks: [...this.state.tasks, newTask],
+                taskInput: "",
+                errorOne: false
+            })
+        }
+        else{
+            this.setState({
+                errorOne: true
             })
         }
     }
