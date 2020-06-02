@@ -1,6 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import Tasklist from './Tasklist';
+import Completelist from './Completelist';
 
 class App extends React.Component {
     constructor(){
@@ -10,7 +11,8 @@ class App extends React.Component {
             taskInput: "",
             tasks: [],
             errorOne: false,
-            errorTwo: true
+            errorTwo: true,
+            completeList: []
         })
 
         this.changeHappened = (event) => {
@@ -36,15 +38,17 @@ class App extends React.Component {
         }
 
         this.completeTask = (taskID) =>{
+            const completedTask = this.state.tasks[taskID];
+
             this.setState({
-                tasks: [...this.state.tasks.slice(0, taskID), ...this.state.tasks.slice(taskID + 1)]
+                tasks: [...this.state.tasks.slice(0, taskID), ...this.state.tasks.slice(taskID + 1)],
+                completeList: [...this.state.completeList, completedTask]
             })
         }
     }
 
 
   render() {
-    console.log(this.state.tasks)
 
     let errorOne;
     if (this.state.errorOne === true) {
@@ -64,6 +68,10 @@ class App extends React.Component {
         <div>
             <div>
                 <Tasklist tasks={this.state.tasks} completeTask={this.completeTask} />
+            </div>
+            <div>
+                <h2>Completed Tasks:</h2>
+                <Completelist completeList={this.state.completeList}/>
             </div>
         </div>
       </div>
