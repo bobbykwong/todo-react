@@ -35,14 +35,16 @@ class App extends React.Component {
             }
         }
 
-        this.completeTask = () => {
-
+        this.completeTask = (taskID) =>{
+            this.setState({
+                tasks: [...this.state.tasks.slice(0, taskID), ...this.state.tasks.slice(taskID + 1)]
+            })
         }
     }
 
 
   render() {
-    console.log(this.state)
+    console.log(this.state.tasks)
 
     let errorOne;
     if (this.state.errorOne === true) {
@@ -61,9 +63,8 @@ class App extends React.Component {
         </div>
         <div>
             <div>
-                <Tasklist tasks={this.state.tasks} />
+                <Tasklist tasks={this.state.tasks} completeTask={this.completeTask} />
             </div>
-            <button onClick={() => {this.completeTask()}}>Completed Task</button>
         </div>
       </div>
     );

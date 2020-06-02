@@ -5,7 +5,7 @@ class Tasklist extends React.Component{
     render(){
         const tasks = this.props.tasks.map((task, taskID) => {
         return (
-            <Task task={task} taskID={taskID}/>
+            <Task task={task} taskID={taskID} completeTask={this.props.completeTask}/>
         )
     })
         return(
