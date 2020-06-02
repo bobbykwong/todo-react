@@ -1,5 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
+import Tasklist from './Tasklist';
 
 class App extends React.Component {
     constructor(){
@@ -43,15 +44,6 @@ class App extends React.Component {
   render() {
     console.log(this.state)
 
-    const tasks = this.state.tasks.map((task, taskID) => {
-        return (
-            <div>
-                <input type="checkbox" value="taskID"/>
-                <label>{task}</label>
-            </div>
-        )
-    })
-
     let errorOne;
     if (this.state.errorOne === true) {
         errorOne = <p>Task needs to be more than 1 character</p>
@@ -63,13 +55,15 @@ class App extends React.Component {
     return (
       <div>
         <div>
-            <div>{tasks}</div>
-            <button onClick={() => {this.completeTask()}}>Completed Task</button>
-        </div>
-        <div>
             <input onChange={(event) => {this.changeHappened(event)}} value={this.state.taskInput}/>
             {errorOne}
             <button onClick={() => {this.clickHappened()}} >Submit</button>
+        </div>
+        <div>
+            <div>
+                <Tasklist tasks={this.state.tasks} />
+            </div>
+            <button onClick={() => {this.completeTask()}}>Completed Task</button>
         </div>
       </div>
     );
